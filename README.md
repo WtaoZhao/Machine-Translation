@@ -19,6 +19,8 @@
 ```
 
 > （3）利用 generate.py 中算法整理得到标准句对齐语料和段落索引文件，放入 /corpus 中
+
+> 注：在实际实验过程中，我们发现 Champollion 无法处理过大文件（此处的训练集）的对齐，所以我们考虑将训练集按段落拆分成1000个小文件（详见/sentAlignProcess/trainSetMap.py），然后分别用 Champollion 对齐（详见drive.sh），再合并至一个对齐文件 train.cut.align（详见trainSetReduce.py）。
 ### 3. 数据集预处理
 ### 4. 训练模型
 ### 5. 测试模型
