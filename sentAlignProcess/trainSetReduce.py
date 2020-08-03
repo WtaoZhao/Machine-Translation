@@ -11,17 +11,16 @@ for i in range(nums):
         rightIdx = right.split(',')
 
         if leftIdx[0] != 'omitted':
-            for j in range(leftIdx):
+            for j in range(len(leftIdx)):
                 leftIdx[j] = str(int(leftIdx[j]) + int(offset[i][0]))
 
         if rightIdx[0] != 'omitted':
-            for j in range(rightIdx):
+            for j in range(len(rightIdx)):
                 rightIdx[j] = str(int(rightIdx[j]) + int(offset[i][1]))
 
         left = ','.join(leftIdx)
         right = ','.join(rightIdx)
         line = ' <=> '.join([left, right]) + '\n'
         align.write(line)
-    align_tmp.close()
 
 align.close()

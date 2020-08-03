@@ -1,8 +1,4 @@
 #!/bin/bash
-# Attention:
-# vim drive.sh
-# :set fileformat=unix
-# :wq!
 cnt=0
 nums=1000
 echo "Begin $nums-times Champollion!"

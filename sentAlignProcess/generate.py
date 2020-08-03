@@ -1,6 +1,6 @@
 import os
 
-for type in ['valid', 'test']: # 'train'
+for type in ['train', 'valid', 'test']: 
     en_dest = open('./dest/%s.cut.en' % type, 'r', encoding='utf-8').readlines()
     zh_dest = open('./dest/%s.cut.zh' % type, 'r', encoding='utf-8').readlines()
     align = open('./afterChamp/%s.cut.align' % type, 'r', encoding='utf-8').readlines()
