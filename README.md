@@ -21,12 +21,15 @@
 > （3）利用 generate.py 中算法整理得到标准句对齐语料和段落索引文件，放入 /corpus 中。
 
 > 注1：在实际实验过程中，我们发现 Champollion 无法处理过大文件（此处的训练集）的对齐，所以我们考虑将训练集按段落拆分成1000个小文件（详见trainSetMap.py），然后分别用 Champollion 对齐（详见drive.sh），再合并至一个对齐文件 train.cut.align（详见trainSetReduce.py）；
-> 注2：.doc 段落索引文件含义详见 [idiap/HAN_NMT](https://github.com/idiap/HAN_NMT#preprocess)
+
+> 注2：.doc 段落索引文件含义详见 [idiap/HAN_NMT](https://github.com/idiap/HAN_NMT#preprocess)。
 ### 3. 数据集预处理
 > 将上一步骤中得到的语料放入 /hannmtModel/HANNMT/preprocess/src 中，调用脚本 prepare.sh 进行预处理，对训练集和验证集分别进行英语标准化和汉语分词，得到预处理好的数据集（/hannmtModel/HANNMT/preprocess/dataset）。
+
 > 注：第3、4、5部分参考了 [idiap/HAN_NMT](https://github.com/idiap/HAN_NMT) 的代码，是论文 [2](https://arxiv.org/abs/1809.01576) 中提到的篇章级层级注意力网络的 OpenNMT-Pytorch 实现。我们对原代码进行修改，使之更适合段落级的翻译，其中英语标准化使用 [moses](http://www.statmt.org/moses/) 工具，中文分词使用 [jieba](https://github.com/fxsjy/jieba) Python 库。此部分代码运行要求在 /hannmtModel 目录下安装 moses。
 ### 4. 训练模型
 ### 5. 测试模型
 ### 参考文献
 > [1] Ma, Xiaoyi. "Champollion: A Robust Parallel Text Sentence Aligner." LREC. 2006.
+
 > [2] Miculicich, Lesly, et al. "Document-level neural machine translation with hierarchical attention networks." arXiv preprint arXiv:1809.01576 (2018).
