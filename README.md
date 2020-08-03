@@ -12,7 +12,7 @@
 ### 2. 将段对齐语料转化为句对齐语料（sentAlignProcess）
 > （1）利用 hardcut.py 将 /src 中段对齐语料库直接按标点拆开，并作相应标记，放入 /dest 中；
 
-> （2）利用 [Champollion-1.2](https://sourceforge.net/projects/champollion/) 开源句对齐工具包将 /dest 中文件生成粗略句对齐索引文件，放入 /afterChamp 中，该对齐工具基于论文 [1](https://www.cs.brandeis.edu/~marc/misc/proceedings/lrec-2006/pdf/746_pdf.pdf) ；
+> （2）利用 [Champollion-1.2](https://sourceforge.net/projects/champollion/) 开源句对齐工具包将 /dest 中文件生成粗略句对齐索引文件，放入 /afterChamp 中，该对齐工具基于论文 [\[1\]](https://www.cs.brandeis.edu/~marc/misc/proceedings/lrec-2006/pdf/746_pdf.pdf) ；
 
 ```
 /home/[your DIR]/champollion-1.2/bin/champollion.EC_utf8 train[valid/test].cut.en train[valid/test].cut.zh train[valid/test].cut.align
@@ -26,7 +26,7 @@
 ### 3. 数据集预处理
 > 将上一步骤中得到的语料放入 /hannmtModel/HANNMT/preprocess/src 中，调用脚本 prepare.sh 进行预处理，对训练集和验证集分别进行英语标准化和汉语分词，得到预处理好的数据集（/hannmtModel/HANNMT/preprocess/dataset）。
 
-> 注：第3、4、5部分参考了 [idiap/HAN_NMT](https://github.com/idiap/HAN_NMT) 的代码，是论文 [2](https://arxiv.org/abs/1809.01576) 中提到的篇章级层级注意力网络的 OpenNMT-Pytorch 实现。我们对原代码进行修改，使之更适合段落级的翻译，其中英语标准化使用 [moses](http://www.statmt.org/moses/) 工具，中文分词使用 [jieba](https://github.com/fxsjy/jieba) Python 库。此部分代码运行要求在 /hannmtModel 目录下安装 moses。
+> 注：第3、4、5部分参考了 [idiap/HAN_NMT](https://github.com/idiap/HAN_NMT) 的代码，是论文 [\[2\]](https://arxiv.org/abs/1809.01576) 中提到的篇章级层级注意力网络的 OpenNMT-Pytorch 实现。我们对原代码进行修改，使之更适合段落级的翻译，其中英语标准化使用 [moses](http://www.statmt.org/moses/) 工具，中文分词使用 [jieba](https://github.com/fxsjy/jieba) Python 库。此部分代码运行要求在 /hannmtModel 目录下安装 moses。
 ### 4. 训练模型
 ### 5. 测试模型
 ### 参考文献
