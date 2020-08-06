@@ -24,4 +24,4 @@ do
   ln -s $DATA_DEST/$type/$type.corpus.tok.$tgt  $DATA_DEST/$type/$type.corpus.tc.$tgt
 done
 
-python $BASEDIR/../source/preprocess.py -train_src $DATA_DEST/train/train.corpus.tc.$src -train_tgt $DATA_DEST/train/train.corpus.tc.$tgt -train_doc $DATA_SRC/train/train.corpus.doc -valid_src $DATA_DEST/valid/valid.corpus.tc.$src -valid_tgt $DATA_DEST/valid/valid.corpus.tc.$tgt -valid_doc $DATA_SRC/valid/valid.corpus.doc -save_data $BASEDIR/dataset/dataset -src_vocab_size 60000 -tgt_vocab_size 100000 -src_seq_length 100 -tgt_seq_length 100
+python $BASEDIR/../source/preprocess.py -train_src $DATA_DEST/train/train.corpus.tc.$src -train_tgt $DATA_DEST/train/train.corpus.tc.$tgt -train_doc $DATA_SRC/train/train.corpus.doc -valid_src $DATA_DEST/valid/valid.corpus.tc.$src -valid_tgt $DATA_DEST/valid/valid.corpus.tc.$tgt -valid_doc $DATA_SRC/valid/valid.corpus.doc -save_data $BASEDIR/dataset/dataset -src_vocab_size 100000 -tgt_vocab_size 100000 -src_seq_length 100 -tgt_seq_length 100
