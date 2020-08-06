@@ -1,64 +1,99 @@
 import os
 
-for type in ['train', 'valid', 'test']: 
+for type in ['train', 'valid', 'test']:
     en_dest = open('./dest/%s.cut.en' % type, 'r', encoding='utf-8').readlines()
     zh_dest = open('./dest/%s.cut.zh' % type, 'r', encoding='utf-8').readlines()
     align = open('./afterChamp/%s.cut.align' % type, 'r', encoding='utf-8').readlines()
-    en_out = open('./corpus/%s.corpus.en.tmp' % type, 'w', encoding='utf-8')
-    zh_out = open('./corpus/%s.corpus.zh.tmp' % type, 'w', encoding='utf-8')
+    en_out = open('./corpus/%s.corpus.en.tmp' % type, 'w+', encoding='utf-8')
+    zh_out = open('./corpus/%s.corpus.zh.tmp' % type, 'w+', encoding='utf-8')
     en_dest_len = len(en_dest)
     zh_dest_len = len(zh_dest)
+    enFlag = [True]
+    zhFlag = [True]
 
-    def writelines(left_nums, right_nums):
+    def writelines(left_nums, right_nums, enFlag, zhFlag):
         '''左边为 en / 右边为 zh'''
+
+        # 如果两边都只有 '#'
+        if left_nums and right_nums:
+            if len(left_nums) == 1 and len(right_nums) == 1:
+                if en_dest[left_nums[0] - 1] == '#\n' and zh_dest[right_nums[0] - 1] == '#\n':
+                    if enFlag[0]:
+                        en_out.write('#\n')
+                    else:
+                        en_out.write('\n#\n')
+                    if zhFlag[0]:
+                        zh_out.write('#\n')
+                    else:
+                        zh_out.write('\n#\n')
+                    return
+
+        # 异常处理
+        if left_nums:
+            for num in left_nums:
+                if '#' in en_dest[num - 1]:
+                    return
+        if right_nums:
+            for num in right_nums:
+                if '#' in zh_dest[num - 1]:
+                    return
+
+        enFlag[0] = True
+        zhFlag[0] = True
 
         # 如果左边为 omitted
         if not left_nums:
             idx = right_nums[0] - 1
-            if idx == 0 or zh_dest[idx - 1] == '#\n':
-                zh_out.write(zh_dest[idx].rstrip('\n'))
+            if zh_dest[idx - 1] == '#\n' and zh_dest[idx + 1] == '#\n':
+                return
+            elif idx == 0 or zh_dest[idx - 1] == '#\n':
+                zh_out.write(zh_dest[idx].rstrip('\n').replace('\t', ''))
+                zhFlag[0] = False
             elif idx == zh_dest_len - 1 or zh_dest[idx + 1] == '#\n':
                 zh_out.seek(zh_out.tell() - 2)
                 zh_out.truncate()
-                zh_out.write(zh_dest[idx])
+                zh_out.seek(zh_out.tell() - 1)
+                try:
+                    if zh_out.read() == '#':
+                        zh_out.write('\n')
+                except UnicodeDecodeError:
+                    pass
+                zh_out.write(zh_dest[idx].replace('\t', ''))
             return
 
         # 如果右边为 omitted
         if not right_nums:
             idx = left_nums[0] - 1
+            if en_dest[idx - 1] == '#\n' and en_dest[idx + 1] == '#\n':
+                return
             if idx == 0 or en_dest[idx - 1] == '#\n':
-                en_out.write(en_dest[idx].rstrip('\n') + ' ')
+                en_out.write(en_dest[idx].rstrip('\n').replace('\t', '') + ' ')
+                enFlag[0] = False
             elif idx == en_dest_len - 1 or en_dest[idx + 1] == '#\n':
                 en_out.seek(en_out.tell() - 2)
                 en_out.truncate()
-                en_out.write(' ' + en_dest[idx])
+                en_out.seek(en_out.tell() - 1)
+                if en_out.read() == '#':
+                    en_out.write('\n')
+                else:
+                    en_out.write(' ')
+                en_out.write(en_dest[idx].replace('\t', ''))
             return
-
-        # 如果两边都只有 '#'
-        if len(left_nums) == 1 and len(right_nums) == 1:
-            if en_dest[left_nums[0] - 1] == '#\n' and zh_dest[right_nums[0] - 1] == '#\n':
-                en_out.write('#\n')
-                zh_out.write('#\n')
-                return
 
         # 如果没有 omitted
         for i in range(len(left_nums)):
             idx = left_nums[i] - 1
-            if en_dest[idx] == '#\n':
-                continue
             if i == len(left_nums) - 1:
-                en_out.write(en_dest[idx])
+                en_out.write(en_dest[idx].replace('\t', ''))
             else:
-                en_out.write(en_dest[idx].rstrip('\n') + ' ')
+                en_out.write(en_dest[idx].rstrip('\n').replace('\t', '') + ' ')
 
         for i in range(len(right_nums)):
             idx = right_nums[i] - 1
-            if zh_dest[idx] == '#\n':
-                continue
             if i == len(right_nums) - 1:
-                zh_out.write(zh_dest[idx])
+                zh_out.write(zh_dest[idx].replace('\t', ''))
             else:
-                zh_out.write(zh_dest[idx].rstrip('\n'))
+                zh_out.write(zh_dest[idx].rstrip('\n').replace('\t', ''))
 
 
 
@@ -86,7 +121,7 @@ for type in ['train', 'valid', 'test']:
             for elem in tmp_right:
                 right_nums.append(int(elem))
 
-        writelines(left_nums, right_nums)
+        writelines(left_nums, right_nums, enFlag, zhFlag)
 
 
     en_out.close()
