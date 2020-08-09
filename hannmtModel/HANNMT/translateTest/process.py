@@ -17,5 +17,3 @@ for i in range(sentNums):
 '''生成句子级翻译文件'''
 for i in range(sentNums):
     sent.write(raw[i].replace(' ', ''))
-
-os.remove('prediction.raw.zh')

@@ -111,7 +111,6 @@ def report_func(epoch, batch, num_batches,
 	"""
 	This is the user-defined batch-level traing progress
 	report function.
-
 	Args:
 		epoch(int): current epoch count.
 		batch(int): current batch count.
@@ -139,7 +138,6 @@ def report_func(epoch, batch, num_batches,
 class DatasetLazyIter(object):
 	""" An Ordered Dataset Iterator, supporting multiple datasets,
 		and lazy loading.
-
 	Args:
 		datsets (list): a list of datasets, which are lazily loaded.
 		fields (dict): fields dict for the datasets.
@@ -342,7 +340,6 @@ def lazily_load_dataset(corpus_type):
 	"""
 	Dataset generator. Don't do extra stuff here, like printing,
 	because they will be postponed to the first loading time.
-
 	Args:
 		corpus_type: 'train' or 'valid'
 	Returns:
