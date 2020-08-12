@@ -1,6 +1,6 @@
 ## 面向段落对齐语料的层级注意力翻译模型
 ### 1. 收集段对齐语料
-> （1）在 Amazon 官网下载英汉双语小说电子版；
+> （1）在 [Amazon 中国](https://www.amazon.cn)官网下载英汉双语小说电子版；
 
 > （2）将电子版小说转换为文本；
 
@@ -28,8 +28,30 @@
 
 > 注：第3、4、5部分参考了 [idiap/HAN_NMT](https://github.com/idiap/HAN_NMT) 的代码，是论文 [\[2\]](https://arxiv.org/abs/1809.01576) 中提到的篇章级层级注意力网络的 OpenNMT-Pytorch 实现。我们对原代码进行修改，使之更适合段落级的翻译，其中英语标准化使用 [moses](http://www.statmt.org/moses/) 工具，中文分词使用 [jieba](https://github.com/fxsjy/jieba) Python 库。此部分代码运行要求在 /hannmtModel 目录下安装 moses。
 ### 4. 训练模型
+> 运行 shell 脚本直接训练模型，模型超参数需要在脚本中调节，包含以下四个脚本：
+
+> trainingBase.sh 训练句级 Transformer 基准模型
+
+> trainingEnc.sh 训练层级编码器（基于句级）
+
+> trainingDec.sh 训练层级解码器（基于句级）
+
+> trainingJoint.sh 训练层级联合模型（基于层级编码器、解码器）
+
+> 每训练 1 个 epoch ， 模型 checkpoint 自动保存，有助于预训练或更换数据集进一步训练。
 ### 5. 测试模型
+> 将第 2 部分生成的测试语料用于此步的模型测试，尝试将英文翻译成中文。测试环节分以下几个步骤：
+
+> （1）运行脚本 translate.sh 对测试语料中的英文进行翻译，生成翻译原始文件 prediction.raw.zh ；
+
+> （2）对上述原始文件，调用 process.py 处理，生成翻译句子级文件 prediction.sent.zh 和段落级文件 prediction.para.zh ；
+
+> （3）计算 BLEU 分数 [\[3\]](https://www.aclweb.org/anthology/P02-1040.pdf)。直接调用 calculateBLEU.py 进行计算，输出 1,2,3,4-BLEU 分数，对翻译结果的充分性和流畅性进行评估，也便于与其它翻译模型进行比较。
+
+> 说明：在计算 BLEU 分数时，将句子级预测 prediction.sent.zh 作为待评估文件（candidate），将测试语料目标文件 test.corpus.zh 、测试语料源文件 test.corpus.en 的 Google/Baidu 翻译结果三者作为参考文件（Reference），以便计算得到更客观合理的 BLEU 分数。
 ### 参考文献
 > [1] Ma, Xiaoyi. "Champollion: A Robust Parallel Text Sentence Aligner." LREC. 2006.
 
 > [2] Miculicich, Lesly, et al. "Document-level neural machine translation with hierarchical attention networks." arXiv preprint arXiv:1809.01576 (2018).
+
+> [3] Papineni, Kishore, et al. "BLEU: a method for automatic evaluation of machine translation." Proceedings of the 40th annual meeting of the Association for Computational Linguistics. 2002.
