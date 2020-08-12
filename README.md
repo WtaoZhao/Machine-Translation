@@ -1,4 +1,6 @@
 ## 面向段落对齐语料的层级注意力翻译模型
+#### Neural Machine Translation with Hierarchical Attention Networks based on Paragraph-parallel Corpus
+![flowchart](https://github.com/Nick-Zhao-Engr/Machine-Translation/blob/master/images/flowchart.png)
 ### 1. 收集段对齐语料
 > （1）在 [Amazon 中国](https://www.amazon.cn)官网下载英汉双语小说电子版；
 
@@ -9,7 +11,7 @@
 > （4）整理得到段对齐语料库，拆分为训练集、验证集、测试集（/sentAlignProcess/src/）。
 
 > 注：数据集中也包含收集到的其它类型的段对齐语料，如[WIT语料库](https://wit3.fbk.eu/mt.php?release=2015-01)。
-### 2. 将段对齐语料转化为句对齐语料（sentAlignProcess）
+### 2. 段落分割：将段对齐语料转化为句对齐语料
 > （1）利用 hardcut.py 将 /src 中段对齐语料库直接按标点拆开，并作相应标记，放入 /dest 中；
 
 > （2）利用 [Champollion-1.2](https://sourceforge.net/projects/champollion/) 开源句对齐工具包将 /dest 中文件生成粗略句对齐索引文件，放入 /afterChamp 中，该对齐工具基于论文 [\[1\]](https://www.cs.brandeis.edu/~marc/misc/proceedings/lrec-2006/pdf/746_pdf.pdf) ；
