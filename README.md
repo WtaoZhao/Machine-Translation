@@ -51,6 +51,20 @@
 > （3）计算 BLEU 分数 [\[3\]](https://www.aclweb.org/anthology/P02-1040.pdf)。直接调用 calculateBLEU.py 进行计算，输出 1,2,3,4-BLEU 分数，对翻译结果的充分性和流畅性进行评估，也便于与其它翻译模型进行比较。
 
 > 说明：在计算 BLEU 分数时，将句子级预测 prediction.sent.zh 作为待评估文件（candidate），将测试语料目标文件 test.corpus.zh 、测试语料源文件 test.corpus.en 的 Google/Baidu 翻译结果三者作为参考文件（Reference），以便计算得到更客观合理的 BLEU 分数。
+### 6. 模型对比与评估
+> 将第 2 部分生成的语料库作为以下翻译模型的输入，进行训练、测试、计算 BLEU 分数，对比评估本文提出模型和前人翻译模型的优势与不足，代码位于 /hannmtModel/HANNMT/compare/ ，Pytorch 实现，参考代码 [bentrevett/pytorch-seq2seq](https://github.com/bentrevett/pytorch-seq2seq)。
+
+> [1 - Sequence to Sequence Learning with Neural Networks](http://papers.nips.cc/paper/5346-sequence-to-sequence-learning-with-neural-networks.pdf)
+
+> [2 - Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation](https://arxiv.org/pdf/1406.1078.pdf)
+
+> [3 - Neural Machine Translation by Jointly Learning to Align and Translate](https://arxiv.org/pdf/1409.0473.pdf) (Attention Mechanism)
+
+> 4 - Packed Padded Sequences, Masking, Inference and BLEU
+
+> [5 - Convolutional Sequence to Sequence Learning](https://arxiv.org/pdf/1705.03122.pdf)
+
+> [6 - Attention Is All You Need](http://papers.nips.cc/paper/7181-attention-is-all-you-need.pdf) (Transformer Model, i.e. sentence-level HAN)
 ### 参考文献
 > [1] Ma, Xiaoyi. "Champollion: A Robust Parallel Text Sentence Aligner." LREC. 2006.
 
