@@ -52,7 +52,7 @@
 
 > 说明：在计算 BLEU 分数时，将句子级预测 prediction.sent.zh 作为待评估文件（candidate），将测试语料目标文件 test.corpus.zh 、测试语料源文件 test.corpus.en 的 Google/Baidu 翻译结果三者作为参考文件（Reference），以便计算得到更客观合理的 BLEU 分数。
 ### 6. 模型对比与评估
-> 将第 2 部分生成的语料库作为以下翻译模型的输入，进行训练、测试、计算 BLEU 分数，对比评估本文提出模型和前人翻译模型的优势与不足，代码位于 /hannmtModel/HANNMT/compare/ ，Pytorch 实现，参考代码 [bentrevett/pytorch-seq2seq](https://github.com/bentrevett/pytorch-seq2seq)。
+> 将第 2 部分生成的语料库作为以下翻译模型的输入，进行训练、测试、计算 BLEU 分数，对比评估本文提出的模型相对于前人翻译模型的优势与不足，代码位于 /hannmtModel/HANNMT/compare/ ，Pytorch 实现，参考代码 [bentrevett/pytorch-seq2seq](https://github.com/bentrevett/pytorch-seq2seq)。
 
 > [1 - Sequence to Sequence Learning with Neural Networks](http://papers.nips.cc/paper/5346-sequence-to-sequence-learning-with-neural-networks.pdf)
 
