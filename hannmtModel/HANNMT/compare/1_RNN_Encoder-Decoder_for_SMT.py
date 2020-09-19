@@ -10,7 +10,7 @@ import math
 import time
 import os
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '2'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0,1,2,3'
 
 ''' 1. Prepare Data '''
 
@@ -239,9 +239,12 @@ DEC_DROPOUT = 0.5
 enc = Encoder(INPUT_DIM, ENC_EMB_DIM, HID_DIM, ENC_DROPOUT)
 dec = Decoder(OUTPUT_DIM, DEC_EMB_DIM, HID_DIM, DEC_DROPOUT)
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+model = Seq2Seq(enc, dec, device)
 
-model = Seq2Seq(enc, dec, device).to(device)
+if torch.cuda.device_count() > 1:
+  model = nn.DataParallel(model, device_ids=[0, 1, 2, 3]) # consistent with cuda
+
+model = model.to(device)
 
 
 def init_weights(m):
@@ -365,7 +368,8 @@ for epoch in range(N_EPOCHS):
         best_valid_loss = valid_loss
         savedFiles = os.listdir('./savedModel/2')
         torch.save(model.state_dict(), './savedModel/2/2-model_%f.pt' % valid_loss)
-        os.remove('./savedModel/2/' + savedFiles[0])
+        if savedFiles:
+            os.remove('./savedModel/2/' + savedFiles[0])
 
     print('Epoch: %d | Time: %d m %d s' % (epoch + 1, epoch_mins, epoch_secs))
     print('\tTrain Loss: %f | Train PPL: %f' % (train_loss, math.exp(train_loss)))

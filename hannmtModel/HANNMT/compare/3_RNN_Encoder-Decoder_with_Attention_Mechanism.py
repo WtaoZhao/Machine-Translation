@@ -90,7 +90,6 @@ class Encoder(nn.Module):
         self.embedding = nn.Embedding(input_dim, emb_dim)
 
         self.rnn = nn.GRU(emb_dim, enc_hid_dim, bidirectional = True)
-        self.rnn.flatten_parameters() # compact rnn module weights
 
         self.fc = nn.Linear(enc_hid_dim * 2, dec_hid_dim)
 
@@ -169,7 +168,6 @@ class Decoder(nn.Module):
         self.embedding = nn.Embedding(output_dim, emb_dim)
 
         self.rnn = nn.GRU((enc_hid_dim * 2) + emb_dim, dec_hid_dim)
-        self.rnn.flatten_parameters() # compact rnn module weights
 
         self.fc_out = nn.Linear((enc_hid_dim * 2) + dec_hid_dim + emb_dim, output_dim)
 
@@ -435,7 +433,8 @@ for epoch in range(N_EPOCHS):
         best_valid_loss = valid_loss
         savedFiles = os.listdir('./savedModel/3')
         torch.save(model.state_dict(), './savedModel/3/3-model_%f.pt' % valid_loss)
-        os.remove('./savedModel/3/' + savedFiles[0])
+        if savedFiles:
+            os.remove('./savedModel/3/' + savedFiles[0])
 
     print('Epoch: %d | Time: %d m %d s' % (epoch + 1, epoch_mins, epoch_secs))
     print('\tTrain Loss: %f | Train PPL: %f' % (train_loss, math.exp(train_loss)))
