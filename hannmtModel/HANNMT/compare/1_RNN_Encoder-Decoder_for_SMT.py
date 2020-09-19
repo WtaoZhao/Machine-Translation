@@ -242,7 +242,7 @@ dec = Decoder(OUTPUT_DIM, DEC_EMB_DIM, HID_DIM, DEC_DROPOUT)
 model = Seq2Seq(enc, dec, device)
 
 if torch.cuda.device_count() > 1:
-  model = nn.DataParallel(model, device_ids=[0, 1, 2, 3]) # consistent with cuda
+    model = nn.DataParallel(model, device_ids=[0, 1, 2, 3]) # consistent with cuda
 
 model = model.to(device)
 
