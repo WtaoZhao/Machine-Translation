@@ -54,15 +54,15 @@
 ### 6. 模型对比与评估
 > 将第 2 部分生成的语料库作为以下翻译模型的输入，进行训练、测试、计算 BLEU 分数，对比评估本文提出的模型相对于前人翻译模型的优势与不足，代码位于 /hannmtModel/HANNMT/compare/ ，Pytorch 实现，参考代码 [bentrevett/pytorch-seq2seq](https://github.com/bentrevett/pytorch-seq2seq)。
 
-> 1 - RNN Encoder-Decoder for SMT
+> 1 - RNN Encoder-Decoder for SMT [code](https://github.com/Nick-Zhao-Engr/Machine-Translation/blob/master/hannmtModel/HANNMT/compare/1_RNN_Encoder-Decoder_for_SMT.py)
 
 [Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation, 2014/9](https://arxiv.org/pdf/1406.1078.pdf)
 
-> 2 - LSTM Encoder-Decoder for NMT
+> 2 - LSTM Encoder-Decoder for NMT [code](https://github.com/Nick-Zhao-Engr/Machine-Translation/blob/master/hannmtModel/HANNMT/compare/2_LSTM_Encoder-Decoder_for_NMT.py)
 
 [Sequence to Sequence Learning with Neural Networks, 2014/12](http://papers.nips.cc/paper/5346-sequence-to-sequence-learning-with-neural-networks.pdf)
 
-> 3 - RNN Encoder-Decoder with Attention Mechanism
+> 3 - RNN Encoder-Decoder with Attention Mechanism [code](https://github.com/Nick-Zhao-Engr/Machine-Translation/blob/master/hannmtModel/HANNMT/compare/3_RNN_Encoder-Decoder_with_Attention_Mechanism.py)(parallel-gpu)
 
 [Neural Machine Translation by Jointly Learning to Align and Translate, 2016/5](https://arxiv.org/pdf/1409.0473.pdf)
 
