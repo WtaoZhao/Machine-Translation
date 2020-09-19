@@ -11,7 +11,7 @@ import math
 import time
 import os
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '3'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0,1,2,3'
 
 ''' 1. Prepare Data '''
 
@@ -90,6 +90,7 @@ class Encoder(nn.Module):
         self.embedding = nn.Embedding(input_dim, emb_dim)
 
         self.rnn = nn.GRU(emb_dim, enc_hid_dim, bidirectional = True)
+        self.rnn.flatten_parameters() # compact rnn module weights
 
         self.fc = nn.Linear(enc_hid_dim * 2, dec_hid_dim)
 
@@ -168,6 +169,7 @@ class Decoder(nn.Module):
         self.embedding = nn.Embedding(output_dim, emb_dim)
 
         self.rnn = nn.GRU((enc_hid_dim * 2) + emb_dim, dec_hid_dim)
+        self.rnn.flatten_parameters() # compact rnn module weights
 
         self.fc_out = nn.Linear((enc_hid_dim * 2) + dec_hid_dim + emb_dim, output_dim)
 
@@ -300,7 +302,12 @@ attn = Attention(ENC_HID_DIM, DEC_HID_DIM)
 enc = Encoder(INPUT_DIM, ENC_EMB_DIM, ENC_HID_DIM, DEC_HID_DIM, ENC_DROPOUT)
 dec = Decoder(OUTPUT_DIM, DEC_EMB_DIM, ENC_HID_DIM, DEC_HID_DIM, DEC_DROPOUT, attn)
 
-model = Seq2Seq(enc, dec, device).to(device)
+model = Seq2Seq(enc, dec, device)
+
+if torch.cuda.device_count() > 1:
+  model = nn.DataParallel(model, device_ids=[0, 1, 2, 3]) # consistent with cuda
+
+model = model.to(device)
 
 def init_weights(m):
     for name, param in m.named_parameters():
