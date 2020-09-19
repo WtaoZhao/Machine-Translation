@@ -54,17 +54,25 @@
 ### 6. 模型对比与评估
 > 将第 2 部分生成的语料库作为以下翻译模型的输入，进行训练、测试、计算 BLEU 分数，对比评估本文提出的模型相对于前人翻译模型的优势与不足，代码位于 /hannmtModel/HANNMT/compare/ ，Pytorch 实现，参考代码 [bentrevett/pytorch-seq2seq](https://github.com/bentrevett/pytorch-seq2seq)。
 
-> [1 - Sequence to Sequence Learning with Neural Networks](http://papers.nips.cc/paper/5346-sequence-to-sequence-learning-with-neural-networks.pdf)
+> 1 - RNN Encoder-Decoder for SMT
 
-> [2 - Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation](https://arxiv.org/pdf/1406.1078.pdf)
+[Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation, 2014/9](https://arxiv.org/pdf/1406.1078.pdf)
 
-> [3 - Neural Machine Translation by Jointly Learning to Align and Translate](https://arxiv.org/pdf/1409.0473.pdf) (Attention Mechanism)
+> 2 - LSTM Encoder-Decoder for NMT
 
-> 4 - Packed Padded Sequences, Masking, Inference and BLEU
+[Sequence to Sequence Learning with Neural Networks, 2014/12](http://papers.nips.cc/paper/5346-sequence-to-sequence-learning-with-neural-networks.pdf)
 
-> [5 - Convolutional Sequence to Sequence Learning](https://arxiv.org/pdf/1705.03122.pdf)
+> 3 - RNN Encoder-Decoder with Attention Mechanism
 
-> [6 - Attention Is All You Need](http://papers.nips.cc/paper/7181-attention-is-all-you-need.pdf) (Transformer Model, i.e. sentence-level HAN)
+[Neural Machine Translation by Jointly Learning to Align and Translate, 2016/5](https://arxiv.org/pdf/1409.0473.pdf)
+
+> 4 - ConvS2S for NMT
+
+[Convolutional Sequence to Sequence Learning, 2017/7](https://arxiv.org/pdf/1705.03122.pdf)
+
+> 5 - Transformer model
+
+[Attention Is All You Need, 2017/12](http://papers.nips.cc/paper/7181-attention-is-all-you-need.pdf) (i.e. sentence-level HAN)
 ### 参考文献
 > [1] Ma, Xiaoyi. "Champollion: A Robust Parallel Text Sentence Aligner." LREC. 2006.
 
