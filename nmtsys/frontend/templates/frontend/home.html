@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>低资源语种机器翻译系统 DEMO</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'frontend/style.css' %}">
+  <style>
+    .txta {
+      min-height: 30vh;
+      max-height: 60vh;
+      width: 70vw;
+      overflow: hidden;
+      line-height: 1.4;
+      font-size: 20px;
+      font-family: Arial, sans-serif;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>低资源语种机器翻译系统 DEMO</h1>
+    <form action="{% url 'frontend:translate' %}" method="post">
+      {% csrf_token %}
+      <label for="dst" class="select transparent" style="padding:8px;font-weight:600;">源语言</label>
+      <select class="select transparent" name="src" id="src" style="padding:8px;margin:0px;margin-right:30px;">
+        <option value="zh">汉语</option>
+        <option value="ne">尼泊尔语</option>
+        <option value="si">僧伽罗语</option>
+      </select>
+
+      {% if src %}
+      <script>
+        document.getElementById("src").value = "{{ src }}";
+      </script>
+      {% endif %}
+
+      <label for="dst" class="select transparent" style="padding:8px;font-weight:600;">目标语言</label>
+      <select class="select transparent" name="dst" id="dst" style="padding:8px;margin-right:30px;">
+        <option value="zh">汉语</option>
+        <option value="ne">尼泊尔语</option>
+        <option value="si">僧伽罗语</option>
+      </select>
+      {% if dst %}
+      <script>
+        document.getElementById("dst").value = "{{ dst }}";
+      </script>
+      {% endif %}
+
+      <input type="submit" class="transparent button" style="font-weight:600;" value="翻译">
+
+
+      <br><br>
+
+      <textarea class="txta transparent" name="source" style="resize: none;margin:auto;">{{ source|default:"" }}</textarea>
+      <br><br>
+      <textarea readonly class="txta transparent" name="target" style="resize: none;margin:auto;">{{ target|default:"" }}</textarea>
+    </form>
+  </div>
+  <br><br>
+
+  <script src="{% static 'frontend/adjustable_textarea.js' %}"></script>
+</body>
+
+</html>
