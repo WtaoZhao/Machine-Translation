@@ -44,8 +44,8 @@ def align_sent(ch_file, en_file, res_file, write_ch, write_en):
                 wch.write('{}\n'.format(ch_sent))
                 wen.write('{}\n'.format(en_sent))
 
-                ch_sent,en_sent='',''
                 write_cnt+=1
+            ch_sent,en_sent='',''
     print(write_cnt)
 
 if __name__=='__main__':
